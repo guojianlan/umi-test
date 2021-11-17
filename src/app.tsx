@@ -11,21 +11,22 @@ let i = 0;
 export async function getInitialState(): Promise<any> {
   //判断是否有登录状态
   console.log('getInitialState', i++);
-  if (localStorage.getItem('admin_auth_token')) {
-    //  存在admin_auth_token
-    let user = await findAdminUserMe();
-    if (!user.success) {
-      //未登录
-      history.push('/login');
-    } else {
-      return {
-        current_user: user.data,
-      };
-    }
-  } else {
-    history.push('/login');
-    return {};
-  }
+  // if (localStorage.getItem('admin_auth_token')) {
+  //   //  存在admin_auth_token
+  //   let user = await findAdminUserMe();
+  //   if (!user.success) {
+  //     //未登录
+  //     history.push('/login');
+  //   } else {
+  //     return {
+  //       current_user: user.data,
+  //     };
+  //   }
+  // } else {
+  //   history.push('/login');
+  //   return {};
+  // }
+  return {};
 }
 export interface IDataInfo<T> {
   data: T;
@@ -107,31 +108,39 @@ const Footer = () => {
   return <div>222</div>;
 };
 //需要在umirc.ts配置layout选项
-// export const layout = ({ initialState }: any): BasicLayoutProps => {
-//   return {
-//     logout: () => {
-//       console.log(1);
-//     }, // do something
-//     // rightContentRender: () => <RightContent />, //右上角
-//     breadcrumbRender: (routers) => {
-//       if (routers) {
-//         return [
-//           {
-//             path: '/',
-//             breadcrumbName: '首页',
-//           },
-//           ...routers,
-//         ];
-//       } else {
-//         return [];
-//       }
-//     },
-//     footerRender: () => <Footer />,
-//     onPageChange: (...args) => {
-//       // console.log(args);
-//       // console.log(initialState);
-//     },
-//     menuHeaderRender: undefined,
-//     ...initialState,
-//   };
-// };
+export const layout = ({ initialState }: any): BasicLayoutProps => {
+  return {
+    logout: () => {
+      console.log(1);
+    }, // do something
+    // rightContentRender: () => <RightContent />, //右上角
+    breadcrumbRender: (routers) => {
+      if (routers) {
+        return [
+          {
+            path: '/',
+            breadcrumbName: '首页',
+          },
+          ...routers,
+        ];
+      } else {
+        return [];
+      }
+    },
+    footerRender: () => <Footer />,
+    onPageChange: (...args) => {
+      // console.log(args);
+      // console.log(initialState);
+    },
+    menuHeaderRender: undefined,
+    ...initialState,
+  };
+};
+
+// export function patchRoutes({ routes }) {
+//   console.log(routes)
+//   routes.push({
+//     path: '*',
+//     component: import('@/pages/404'),
+//   });
+// }
