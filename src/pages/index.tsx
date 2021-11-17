@@ -5,6 +5,7 @@ export default function IndexPage() {
     <div>
       <h1 className={styles.title}>Page index</h1>
       <Link to="/permission">go to permission</Link>
+      <Link to="/login">go to login</Link>
     </div>
   );
 }
